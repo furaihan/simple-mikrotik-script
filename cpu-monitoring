@@ -1,9 +1,4 @@
-﻿#using System;
-#using System.Reflection;
-#using System.ComponentModel;
-#using System.Threading;
-
-global cpuarray ([/system resource get value-name=cpu-load])
+﻿global cpuarray ([/system resource get value-name=cpu-load])
 local isInternetConnected
 local rebootIfHigh false
 local setup do={

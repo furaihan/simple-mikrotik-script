@@ -1,0 +1,5 @@
+#Add a new scheduler setting with folowwing event:
+#Change telegram chat id below with your own
+:global CHATID ("-4936xxx")
+#Change telegram bot id below with your own
+:global BOTID ("62xxxxxxxx:AAExxxx")
