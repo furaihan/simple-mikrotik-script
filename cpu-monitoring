@@ -1,0 +1,41 @@
+﻿#using System;
+#using System.Reflection;
+#using System.ComponentModel;
+#using System.Threading;
+
+global cpuarray ([/system resource get value-name=cpu-load])
+local isInternetConnected
+local rebootIfHigh false
+local setup do={
+	delay 950ms;
+	global cpuarray
+	set cpuarray ([/system resource get value-name=cpu-load],$cpuarray)
+}
+local cpusample 20
+for i from=1 to=[$cpusample -1] do={
+	$setup
+}
+local totalcpuarray 0
+foreach value in=$cpuarray do={ set totalcpuarray ($totalcpuarray + $value)}
+:put $totalcpuarray
+local avgcpu ($totalcpuarray / [:len $cpuarray])
+if ($avgcpu > 65) do={
+	tool flood-ping 8.8.8.8 count=10 do={
+		/if ($received > 8) do={
+			set $isInternetConnected [tobool true]
+		} else={
+			set $isInternetConnected [tobool false]
+		}
+	}
+	if ($isInternetConnected=true) do={
+		global CHATID
+		global BOTID
+		local sendToTelegram ("Mikrotik ".[/system resource get value-name=board-name]."(".[/sy id get value-name=name].") :%0A\E2\9A\A0 \E2\9A\A0 <b>CPU Load Report</b>%0AAverage: $avgcpu%25%0ACPU Samples: $cpusample%0AReboot if CPU sample show highload: $rebootIfHigh")
+		/tool fetch url="https://api.telegram.org/bot$BOTID/sendMessage?chat_id=$CHATID&text=$sendToTelegram&parse_mode=html" keep-result=no;
+	} else={
+		log warning message="Cannot send message to telegram. is internet connected?"
+	}
+	if ($rebootIfHigh = true) do={/system reboot}
+} else={
+	nothing
+}

@@ -1,0 +1,68 @@
+#=============================================== DNS Monitor Information ================================================
+#
+#                  COPYRIGHT MIKROTIK ROUTEROS SCRIPT PROVIDED BY FURAIHAN
+#
+#=============================================== DNS Monitor by furaihan ================================================
+#
+#                  THE SCRIPT FILE LOADED SUCCESFULLY.
+#                  DETECTED VERSION:  1.0 BETA
+#
+#=============================================== DNS Monitor by furaihan ================================================
+
+foreach 11g in=[/ip dns cache all find where (name~"zynga" or name~"kojima" or name~"konami" or name~"projektred" or name~"rockstar" or name~"ubisoft" or name~"gameloft" or name~"superevil" or name~"mojang" or name~"game" or name~"steampowered" or name~"garena" or name~"freefire" or name~"supercell" or name~"moonton" or name~"dragonraja" or name~"activision" or name~"bandai" or name~"codmobile") && (type="CNAME")] do={
+	:local 22g [/ip dns cache all get value-name=name $11g]
+	:local 33g [/ip dns cache all get value-name=data $11g]
+	:local 44g [:resolve "$33g"]
+	:local 55g [:len [/ip fir ad find where address=$44g]]
+	:put  message="Address $22g - $44g found, checking availability on firewall address list"
+	:if ($55g=0) do={
+		/ip fir ad add address=$44g list=GAME
+		:local sms ("DNS game $22g has been added succesfully")
+		:put $sms
+		:log info message="$sms"
+		/ip fir ad set [find where address=$44g] comment=[]
+	}
+}
+delay 2s;
+foreach 11gg in=[/ip dns cache all find where (name~"zynga" or name~"kojima" or name~"konami" or name~"projektred" or name~"rockstar" or name~"ubisoft" or name~"gameloft" or name~"superevil" or name~"mojang" or name~"game" or name~"steampowered" or name~"garena" or name~"freefire" or name~"supercell" or name~"moonton" or name~"dragonraja" or name~"activision" or name~"bandai" or name~"codmobile") && (type="A")] do={
+	:local 22gg [/ip dns cache all get value-name=name $11gg]
+	:local 33gg [/ip dns cache all get value-name=data $11gg]
+	:local 55gg [:len [/ip fir ad find where address=$33gg]]
+	:put  message="Address $22gg - $33gg found, checking availability on firewall address list"
+	:if ($55gg=0) do={
+		/ip fir ad add address=$33gg list=GAME
+		:local sms ("DNS game $22gg has been added succesfully")
+		:put $sms
+		:log info message="$sms"
+		/ip fir ad set [find where address=$33gg] comment=[]
+	}
+}
+delay 1s;
+foreach 11s in=[/ip dns cache all find where (name~"tiktok" or name~"instagram" or name~"fbcdn" or name~"whatsapp" or name~"telegram" or name~"wa.me" or name~"today.line" or name~"likee" or name~"twitter" or name~"twimg" or name~"pinterest" or name~"pinimg" or name~"snapchat" or name~"appspot.com" or name~"linkedin" or name~"licdn" or name~"line-scdn" or name~"tumblr" or name~"reddit" or name~"facebook" or name~"1cak.com" or name~"redd.it") && (type="CNAME")] do={
+	:local 22s [/ip dns cache all get value-name=name $11s]
+	:local 33s [/ip dns cache all get value-name=data $11s]
+	:local 44s [:resolve "$33s"]
+	:local 55s [:len [/ip fir ad find where address=$44s]]
+	:put  message="Address $22s - $44s found, checking availability on firewall address list"
+	:if ($55s=0) do={
+		/ip fir ad add address=$44s list=SOSMED
+		:local sms ("DNS sosmed $22s has been added succesfully")
+		:put $sms
+		:log info message="$sms"
+		/ip fir ad set [find where address=$44s] comment=[]
+	}
+}
+delay 1s;
+foreach 11ss in=[/ip dns cache all find where (name~"tiktok" or name~"instagram" or name~"fbcdn" or name~"whatsapp" or name~"telegram" or name~"wa.me" or name~"today.line" or name~"likee" or name~"twitter" or name~"twimg" or name~"pinterest" or name~"pinimg" or name~"snapchat" or name~"appspot.com" or name~"linkedin" or name~"licdn" or name~"line-scdn" or name~"tumblr" or name~"reddit" or name~"facebook" or name~"1cak.com" or name~"redd.it") && (type="A")] do={
+	:local 22ss [/ip dns cache all get value-name=name $11ss]
+	:local 33ss [/ip dns cache all get value-name=data $11ss]
+	:local 55ss [:len [/ip fir ad find where address=$33ss]]
+	:put  message="Address $22ss - $33ss found, checking availability on firewall address list"
+	:if ($55ss=0) do={
+		/ip fir ad add address=$33ss list=SOSMED
+		:local sms ("DNS sosmed $22ss has been added succesfully")
+		:put $sms
+		:log info message="$sms"
+		/ip fir ad set [find where address=$33ss] comment=[]
+	}
+}
