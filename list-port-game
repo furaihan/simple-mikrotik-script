@@ -1,0 +1,99 @@
+#SOURCE: INTERNET
+{/ip firewall raw
+add action=add-dst-to-address-list address-list=virus address-list-timeout=1d \
+chain=prerouting comment=Virus dst-address-list=!Private-Lokal dst-port=\
+67,135-139,445,520,3389,20004,7533,5678,20561 protocol=udp \
+src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Vainglory dst-address-list=!Private-Lokal dst-port=\
+7000-8020 protocol=tcp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Vainglory content=.superevil.net \
+dst-address-list=!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="Mobile Legends" dst-address-list=!Private-Lokal \
+dst-port=30000-30150 protocol=tcp 
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="Mobile Legends" dst-address-list=!Private-Lokal \
+dst-port=44590-44610 protocol=tcp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="PUBG Mobile" dst-address-list=!Private-Lokal \
+dst-port=10012-17500 protocol=tcp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="PUBG Mobile" dst-address-list=!Private-Lokal \
+dst-port=7086-7995,12070-12460,41182-42474 protocol=udp src-address-list=\
+Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="PUBG Mobile" content=tencentgames.helpshift.com \
+dst-address-list=!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="Garena" content=.garenanow.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=FM19 content=.amazonaws.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=FM19 content=fm19 dst-address-list=!Private-Lokal \
+src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Roblox content=roblox dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Roblox content=roblox.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Roblox dst-address-list=!Private-Lokal dst-port=\
+56849-57729,60275-64632 protocol=udp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Minecraft content=mojang dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Minecraft content=.mojang.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Minecraft content=unity dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Amazonaws content=.amazonaws.com \
+dst-address-list=!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Gameloft content=.gameloft.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Xboxlive content=.xboxlive.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Friv.COM content=.friv.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="Asphalt 9" dst-address-list=!Private-Lokal \
+dst-port=420,36323,45125,46339,43393 protocol=tcp src-address-list=\
+Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="Asphalt 9" dst-address-list=!Private-Lokal \
+dst-port=3544 protocol=udp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=Gameloop content=.qq.com dst-address-list=\
+!Private-Lokal src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="Free Fire" dst-address-list=!Private-Lokal \
+dst-port=10000-10007 protocol=udp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=DOTA2 dst-address-list=!Private-Lokal dst-port=\
+27000-28998 protocol=tcp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=DOTA2 dst-address-list=!Private-Lokal dst-port=\
+27000-28998 protocol=udp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=PALADINS dst-address-list=!Private-Lokal dst-port=\
+9000-9999 protocol=udp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment=PALADINS dst-address-list=!Private-Lokal dst-port=\
+9000-9999 protocol=tcp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="FIFA ONLINE" dst-address-list=!Private-Lokal \
+dst-port=7770-7790 protocol=tcp src-address-list=Private-Lokal
+add action=add-dst-to-address-list address-list=GAME address-list-timeout=1d \
+chain=prerouting comment="FIFA ONLINE" dst-address-list=!Private-Lokal \
+dst-port=16300-16350 protocol=udp src-address-list=Private-Lokal
+}
