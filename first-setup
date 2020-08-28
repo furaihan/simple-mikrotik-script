@@ -3,3 +3,13 @@
 :global CHATID ("-4936xxx")
 #Change telegram bot id below with your own
 :global BOTID ("62xxxxxxxx:AAExxxx")
+:global GetMacVendor
+:set GetMacVendor do={
+	local MacAddress [:tostr $1]
+	:do {
+		local result ([/tool fetch mode=https http-method=get url=("https://api.macvendors.com/".[:pick [:tostr $MacAddress] 0 8 ]) as-value output=user ]->"data")
+		return $result
+	} on-error={
+		return "Error! this probably cause from unknown vendor or a connection problem"
+	}
+}

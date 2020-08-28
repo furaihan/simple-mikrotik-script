@@ -25,3 +25,6 @@
 :local catatan ("Data diatas adalah hasil perhitungan selama: $murup%0A")
 :set keluar ($ngalong.$ssid.$MACAddr.$frequency.$signall.$upload.$download.$youtube.$catatan."%0A")
 /tool fetch url="https://api.telegram.org/bot624175217:AAEbatoTY88FkeYvjwYQbzdlurwYjMOoaFU/sendMessage?chat_id=-487804024&text=$keluar" keep-result=no;
+global CHATID
+global BOTID
+local wan 
