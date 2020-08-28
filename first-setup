@@ -38,3 +38,13 @@ global ConvertUpperCase do={
 	}
 	:return $result
 }
+global CheckConnection do={
+	global ConnectionAvailable
+	tool flood-ping 8.8.8.8 count=10 do={
+		/if ($received > 8) do={
+			set $ConnectionAvailable [tobool true]
+		} else={
+			set $ConnectionAvailable [tobool false]
+		}
+	}
+}
