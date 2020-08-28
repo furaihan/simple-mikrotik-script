@@ -22,7 +22,7 @@ if ($avgcpu > 65) do={
 		global CHATID
 		global BOTID
 		local sendToTelegram ("Mikrotik ".[/system resource get value-name=board-name]."(".[/sy id get value-name=name].") :%0A\E2\9A\A0 \E2\9A\A0 <b>CPU Load Report</b>%0AAverage: $avgcpu%25%0ACPU Samples: $cpusample%0AReboot if CPU sample show highload: $rebootIfHigh")
-		/tool fetch url="https://api.telegram.org/bot$BOTID/sendMessage?chat_id=$CHATID&text=$sendToTelegram&parse_mode=html" keep-result=no;
+		/tool fetch url="https://api.telegram.org/bot$BOTID/sendMessage\?chat_id=$CHATID&text=$sendToTelegram&parse_mode=html" keep-result=no;
 	} else={
 		log warning message="Cannot send message to telegram. is internet connected?"
 	}

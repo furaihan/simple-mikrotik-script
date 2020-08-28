@@ -1,30 +1,12 @@
-:local keluar
-:delay 2s
-:local boros ([/interface get value-name=fp-rx-byte wlan1] + [/interface get value-name=fp-tx-byte wlan1])
-:delay 1s
-:local borostotal ($boros / 1024 / 1024 /1024);
-:delay 3s
-:local signall ("\F0\9F\93\B6 Signal Strength: ".[/int wir reg get value-name=signal-strength number=0]."%0A")
-:delay 5s
-:local murup ([/system resource get uptime])
-:local papan ([/system resource get board-name])
-:local ngalong ("MikroTik $papan%0A\E2\8C\9B Uptime: $murup%0A")
-:delay 5s
-:local ssid ("\F0\9F\86\94 SSID Connected: ".[/interface wireless get value-name=ssid wlan1]."%0A")
-:local MACAddr ("\F0\9F\8E\AC MAC Address: ".[/interface wireless get value-name=mac-address wlan1]."%0A")
-:local frequency ("\F0\9F\93\A1 Frequency Used: ".[/interface wireless get value-name=frequency wlan1]."%0A")
-:local RXTot ([/interface get wlan1 rx-byte])
-:local TXTot ([/interface get wlan1 tx-byte])
-:local byteyt ([/ip firewall filter get value-name=bytes number=3])
-:local TXGB ($TXTot / 1024 / 1024 / 1024);
-:local RXGB ($RXTot / 1024 / 1024 / 1024);
-:local YTGB ($byteyt / 1024 / 1024);
-:local upload ("\F0\9F\93\A4 Upload Usage: $TXGB GB%0A")
-:local download ("\F0\9F\93\A5 Download Usage $RXGB GB%0A")
-:local youtube ("\E2\96\B6 Youtube Usage: $YTGB MB%0A")
-:local catatan ("Data diatas adalah hasil perhitungan selama: $murup%0A")
-:set keluar ($ngalong.$ssid.$MACAddr.$frequency.$signall.$upload.$download.$youtube.$catatan."%0A")
-/tool fetch url="https://api.telegram.org/bot624175217:AAEbatoTY88FkeYvjwYQbzdlurwYjMOoaFU/sendMessage?chat_id=-487804024&text=$keluar" keep-result=no;
-global CHATID
-global BOTID
-local wan 
+global CheckConnection
+$CheckConnection
+global ConnectionAvailable
+if ($ConnectionAvailable=true) do={
+	global CHATID
+	global BOTID
+	local wan [/ip arp get number=[find where address=[/ip route get number=[find where dst-address="0.0.0.0/0" && active=yes ] gateway]] interface]
+	local SendTelegram ("<b>Daily Data Usage Report:</b>%0A"."WAN Interface: $wan%0A"."Upload Usage:".([/interface get $wan tx-byte] / 1024 / 1024 / 1024)." GB%0ADownload Usage: ".([/interface get $wan rx-byte] / 1024 / 1024 / 1024)." GB%0ATotal: ".(([/interface get $wan tx-byte] / 1024 / 1024 / 1024) + ([/interface get $wan rx-byte] / 1024 / 1024 / 1024))." GB")
+	/tool fetch url="https://api.telegram.org/bot$BOTID/sendMessage\?chat_id=$CHATID&text=$SendTelegram&parse_mode=html" keep-result=no;
+} else={
+	log warning message="Cannot send message to telegram. is internet connected?"
+}
