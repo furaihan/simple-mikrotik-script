@@ -3,11 +3,9 @@
 :global CHATID ("-4936xxx")
 #Change telegram bot id below with your own
 :global BOTID ("62xxxxxxxx:AAExxxx")
-:global GetMacVendor
-:set GetMacVendor do={
-	local MacAddress [:tostr $1]
+:global GetMacVendor do={
 	:do {
-		local result ([/tool fetch mode=https http-method=get url=("https://api.macvendors.com/".[:pick [:tostr $MacAddress] 0 8 ]) as-value output=user ]->"data")
+		local result ([/tool fetch mode=https http-method=get url=("https://api.macvendors.com/".[:pick [:tostr $1] 0 8 ]) as-value output=user ]->"data")
 		return $result
 	} on-error={
 		return "Error! this probably cause from unknown vendor or a connection problem"
@@ -48,7 +46,7 @@
 			:set internet false;
 		}
 	}
-	:return $internet
+	:return [:tobool $internet]
 }
 #This script is inspired by TSOKOTSA's script published in the Mikrotik forum
 :global GenerateRandomString do={
