@@ -31,8 +31,8 @@
 }
 :if ($hundred2 = $hundred) do={:set hundred2 ($hundred2 + $hour + 1)}
 :if (($hundred3 = $hundred) or ($hundred3 = $hundred2)) do={ :set hundred3 ($hundred3 + $second)}
-:if ($minute + $second - $hour < 5) do={
-	:set second ($second + 25)
+:if ($minute + $utsec - $hour < 5) do={
+	:set utsec ($utsec + 25)
 	:set minute ($minute + 60)
 } else={
 	:nothing
