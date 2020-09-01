@@ -6,11 +6,13 @@ local setup do={
 	global cpuarray
 	set cpuarray ([/system resource get value-name=cpu-load],$cpuarray)
 }
+#Change the value below to change the number of CPU load sample to average
 local cpusample 20
 for i from=1 to=[$cpusample -1] do={
 	$setup
 }
 local totalcpuarray 0
+#calculating the average
 foreach value in=$cpuarray do={ set totalcpuarray ($totalcpuarray + $value)}
 :put $totalcpuarray
 local avgcpu ($totalcpuarray / [:len $cpuarray])

@@ -8,7 +8,7 @@
 		local result ([/tool fetch mode=https http-method=get url=("https://api.macvendors.com/".[:pick [:tostr $1] 0 8 ]) as-value output=user ]->"data")
 		return $result
 	} on-error={
-		return "Error! this probably cause from unknown vendor or a connection problem"
+		return "vendor not found"
 	}
 }
 #source: https://s.id/q4f-O
@@ -46,7 +46,7 @@
 			:set internet false;
 		}
 	}
-	:return [:tobool $internet]
+	:return $internet
 }
 #This script is inspired by TSOKOTSA's script published in the Mikrotik forum
 :global GenerateRandomString do={
