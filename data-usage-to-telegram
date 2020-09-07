@@ -1,6 +1,5 @@
-global CheckConnection
-$CheckConnection
-global ConnectionAvailable
+:global ConnectionAvailable
+$ConnectionAvailable
 if ($ConnectionAvailable=true) do={
 	global CHATID
 	global BOTID
