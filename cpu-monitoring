@@ -1,5 +1,4 @@
 ﻿local cpuarray 
-local isInternetConnected
 local rebootIfHigh false
 set cpuarray ([/system resource get value-name=cpu-load])
 #Change the value below to change the number of CPU load sample to average
@@ -20,7 +19,13 @@ if ($avgcpu > 65) do={
 	if ($ConnectionAvailable=true) do={
 		global CHATID
 		global BOTID
-		local sendToTelegram ("Mikrotik ".[/system resource get value-name=board-name]."(".[/sy id get value-name=name].") :%0A\E2\9A\A0 \E2\9A\A0 <b>CPU Load Report</b>%0AAverage: $avgcpu%25%0ACPU Samples: $cpusample%0AReboot if CPU sample show highload: $rebootIfHigh")
+		local maxcpu ($cpuarray->0)
+		local mincpu ($cpuarray->0)
+		foreach i in=$cpuarray do={
+			if ($i > $maxcpu) do={ set maxcpu $i}
+			if ($i < $mincpu) do={ set mincpu $i}
+		}
+		local sendToTelegram ("Mikrotik ".[/system resource get value-name=board-name]."(".[/sy id get value-name=name].") :%0A\E2\9A\A0 \E2\9A\A0 <b>CPU Load Report</b>%0AMax: $maxcpu%0AMin: $mincpu%0AAverage: $avgcpu%25%0ACPU Samples: $cpusample%0AReboot if CPU sample show highload: $rebootIfHigh")
 		/tool fetch url="https://api.telegram.org/bot$BOTID/sendMessage\?chat_id=$CHATID&text=$sendToTelegram&parse_mode=html" keep-result=no;
 	} else={
 		log warning message="Cannot send message to telegram. is internet connected?"

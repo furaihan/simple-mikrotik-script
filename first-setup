@@ -5,8 +5,7 @@
 :global BOTID ("62xxxxxxxx:AAExxxx")
 :global GetMacVendor do={
 	:do {
-		local result ([/tool fetch mode=https http-method=get url=("https://api.macvendors.com/".[:pick [:tostr $1] 0 8 ]) as-value output=user ]->"data")
-		return $result
+		return ([/tool fetch mode=https http-method=get url=("https://api.macvendors.com/".[:pick [:tostr $1] 0 8 ]) as-value output=user ]->"data")
 	} on-error={
 		return "vendor not found"
 	}
@@ -85,7 +84,7 @@
 		:set utsec ($utsec + 25)
 		:set minute ($minute + 60)
 	}
-	:local string ("H","3","N","J","L","g","R","b","O","i","9","U","F","G","G","7","k","M","q","F","u","5","w","v","o","O","Q","V","r","6","9","l","u","n","Q","l","M","C","9","j","a","s","Y","h","K","S","N","T","d","H","i","f","E","f","q","0","7","0","w","s","X","h","9","b","X","b","n","n","R","E","z","q","r","w","7","Z","N","5","d","2","P","4","q","V","o","T","b","H","X","I","f","K","6","b","x","y","t","B","E","c","S","m","f","A","9","J","V","H","s","W","l","m","V","Z","p","u","c","r","1","Q","A","Z","2","h","E","P","t","M","c","K","V","B","g","z","J","x","k","y","q","W","K","p","i","R","Z","R","7","A","5","Y","a","A","o","H","X","4","6","9","R","Z","A","d","c","i","L","K","5","T","g","f","W","M","Y","S","J","v","V","t","N","O","F","T","v","6","y","u","p","0","H","W","Y","i","G","I","X","A","W","P","u","l","9","t","1","s","Q","a","e","I","N","E","5","K","O","l","E","m","3","L","P","2","4","s","O","y","Y","V","l","3","y","T","D","b","3","6","N","F","x","4","7","f","9","6","1","R","1","q","T","Z","3","U","W","M","X","H","z","o","T","V","e","O","G","m","0","Q","t","c","8","9","6","g","8","X","f","l","Y","V","a","t","O","5","e","z","C","2","S","K","6","e","Q","d","K","v","j","j")
+	:local string ("fmIHMh52a2sSFIkSCxXkazAiBN09ypjm8F7fK0TxwTGXzaf054139uXhkEwF13Byi58JoA3lvfQr4Y6Ff257Nn5j06FI4eyzskfZybp9KjTnF9YATlBlTfP5j9uzTHspdnY6GfdQA4ekCl83qX2h382FlJv2iQFQPVZfFl15zBcqiV6TQlG3ytdQNyYJWEFy61305atf965w39iP4k6CCM5Ol0wdYZHFfcc0xFpr1ONybU9Dc3FtMCiDaGIzHu9BW4faZE2s938qs9j07pPiCfuD8OWqFEX9ukPkLl4kuNq3VjYJ1Av7W5n2")
 	:local RandomString
 	:set RandomString ([:pick $string ($second + uthour)].[:pick $string ($secondx + $uthour)].[:pick $string ($minute + $utsec - $hour)].[:pick $string ($minute + $uthour + $secondx)].[:pick $string [:tonum ($hundred + $uthour)]].[:pick $string [:tonum ($hundred2 + $utsec)]].[:pick $string [:tonum $hundred3]].[:pick $string ($utmin + $hourx + $second)].[:pick $string ($hourx + $hour + $second)].[:pick $string ($secondx + $utsec)])
 	:return $RandomString
