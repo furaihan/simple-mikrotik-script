@@ -84,9 +84,45 @@
 		:set utsec ($utsec + 25)
 		:set minute ($minute + 60)
 	}
-	:local string ("fmIHMh52a2sSFIkSCxXkazAiBN09ypjm8F7fK0TxwTGXzaf054139uXhkEwF13Byi58JoA3lvfQr4Y6Ff257Nn5j06FI4eyzskfZybp9KjTnF9YATlBlTfP5j9uzTHspdnY6GfdQA4ekCl83qX2h382FlJv2iQFQPVZfFl15zBcqiV6TQlG3ytdQNyYJWEFy61305atf965w39iP4k6CCM5Ol0wdYZHFfcc0xFpr1ONybU9Dc3FtMCiDaGIzHu9BW4faZE2s938qs9j07pPiCfuD8OWqFEX9ukPkLl4kuNq3VjYJ1Av7W5n2")
+	:local str1 ("fCnR70RysX1MLh8wsqtLqDKHVr0k3QB4vCO04w2tk67moaIyn3Vh5HiQw92c4xlK1VQiDQA0u336O3EMzl3Yde0rL8b5UWKEsBtM5Z3Y2657PWt22w2x584V21dh3zEKzqW6GvY22I1MRYxEv4Y8u8ENqFN5gE1W5kt1HdgeD88jttsNe89X4ZxEMiVAIZS3AW7N5K6gunQNk77gNssfoCuP23JYGE7iG5DS4Uy8ws8rKIO6K2NbBRcm6Mdvfq3PADah6SCBuExd2vHaOOf533royUpEMRJvlreJSUWK5wRPmmlx81iFI6Yr");
+	:local str2 ("mA4xx0DJ3EDETaVWfhImu8FU584XjUIttwA29HkmiOmvN2tGmn4GqBcpo0Qp6O838PFc9uZxFwXQ8OKC1aM4X2uojX8E4H555JhFDdYQ9ZsEG8PFXFbbszBAg10COP0Ku2d0tfwT72jXKDnFaDkWMyLUtnQ3l7VhV8eyuaFzVW8h3t55xWvFQrKgoFs842nE5T4qqiT7Ply6YFylrEToTZZNtvw0NkRs3Wcz4qAoEhsE0t6JvHV7e2Y7L7T9c7dZ5JkcF1VAIxpUJ7EQCy62JnxaH1AqSGB49nFI52bhf1UHC2b9UjgXo1VC");
+	:local str3 ("4Trr6EncZu6ssMJWe81z8PBpZcy2v58UXgg8m280JxeqGbykd3niaZvY24B3e65FXKkW3yBTTgfV1fII7b8uQURf4FFy7FASbdaEuHfmcpi5l44sb0FO7sQg06MA80LE0l8gJ2k1NzAPTUXJL24Ajvf0ZrvkbMv6VTjMO5lD0Mv5Ljw01w237fKioVn1f2O8eHUq19kMEk1zr5B0ASKLNpL3f0LA3rs18u5jPq7w7VESzhNB89AGFICY72F2ofCs85VDV667CkjmJ0aqg9984I2s5209uu73WXRVc8UMF2PMBEV2J94XFR7c");
+	:local string 
+	:if (($secondx % 2) = 0) do={
+		set string $str1
+	} else={
+		set string $str2
+	}
+	:if ([:pick $second 1] = [:pick $second 0]) do={
+		set string $str3
+	}
 	:local RandomString
 	:set RandomString ([:pick $string ($second + uthour)].[:pick $string ($secondx + $uthour)].[:pick $string ($minute + $utsec - $hour)].[:pick $string ($minute + $uthour + $secondx)].[:pick $string [:tonum ($hundred + $uthour)]].[:pick $string [:tonum ($hundred2 + $utsec)]].[:pick $string [:tonum $hundred3]].[:pick $string ($utmin + $hourx + $second)].[:pick $string ($hourx + $hour + $second)].[:pick $string ($secondx + $utsec)])
 	:return $RandomString
 }
+#source: https://s.id/r5m1E
+global UrlEncode;
+:set UrlEncode do={
+  :local Input [ :tostr $1 ];
+  :local Return "";
+
+  :if ([ :len $Input ] > 0) do={
+    :local Chars " !\"#\$%&'()*+,:;<=>\?@[\\]^`{|}~";
+    :local Subs { "%20"; "%21"; "%22"; "%23"; "%24"; "%25"; "%26"; "%27"; "%28"; "%29";
+                  "%2A"; "%2B"; "%2C"; "%3A"; "%3B"; "%3C"; "%3D"; "%3E"; "%3F"; "%40";
+                  "%5B"; "%5C"; "%5D"; "%5E"; "%60"; "%7B"; "%7C"; "%7D"; "%7E" };
+
+    :for I from=0 to=([ :len $Input ] - 1) do={
+      :local Char [ :pick $Input $I ];
+      :local Replace [ :find $Chars $Char ];
+
+      :if ([ :len $Replace ] > 0) do={
+        :set Char ($Subs->$Replace);
+      }
+      :set Return ($Return . $Char);
+    }
+  }
+  :return $Return;
+  }
+
 
