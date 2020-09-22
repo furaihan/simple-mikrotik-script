@@ -1,0 +1,22 @@
+#UNFINISHED
+:local iface [/ip arp get number=[find where address=[/ip route get number=[find where dst-address="0.0.0.0/0" && active=yes ] gateway]] interface]
+:put $iface;
+:local tx;          
+:local rx;
+:set tx [/interface get $iface tx-byte]; 
+:set rx [/interface get $iface rx-byte];
+:put $tx;
+:put $rx;
+:local reboot;
+:local CR [/file get rxdata.txt contents]
+:local checkerrx [/file get rxreeb.txt contents];
+:local checkertx [/file get txreeb.txt contents];
+:if ($CR > $rx) do={ :set reboot true;} else={ set reboot false;};
+:put $reboot;
+:if ($reboot = true) do={
+	/file set rxdata.txt contents=($checkerrx + $rx);     
+	/file set txdata.txt contents=($checkertx + $tx);
+} else={
+	/file set rxdata.txt contents=$rx;
+	/file set txdata.txt contents=$tx;
+}
